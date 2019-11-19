@@ -47,30 +47,33 @@ To da!  Not very exciting is it?  Try zooming out.  We now have a very basic web
 
 ### Real-time Data
 
-```        // Shared mobility URL
-        sm_url = "https://lime.bike/api/partners/v1/gbfs/free_bike_status.json";
+Copy the code below and paste it directly above the line that reads `EDIT ABOVE THIS LINE`.  I will explain this code in further detail.
 
-        // A new layer that gets data from the "live data" URL we provide and converts it into GeoJSON format.
-        // This function also sets the interval (how often this gets updated) as well as the style for the markers
-        var realtime = L.realtime(function(success, error) {
-            fetch('https://platial.science/p.php?url='+sm_url)
-             .then(function(response) { return response.json(); })
-             .then(function(data) {
-                feat = [];
-                for(i=0;i<data.data.bikes.length;i++) {
-                    scoot = {type: 'Feature',properties: {id: i, vehicle: data.data.bikes[i].vehicle_type},geometry: {type: 'Point',coordinates: [parseFloat(data.data.bikes[i].lon), parseFloat(data.data.bikes[i].lat)]}};
-                        feat.push(scoot);
-                }
-                success({
-                    type: 'FeatureCollection',
-                    features: feat
-                });
-            })
-             .catch(error);
-        }, {
-            interval: 1000,
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng)
-            }
-        }).addTo(map);
+```        
+// Shared mobility URL
+sm_url = "https://lime.bike/api/partners/v1/gbfs/free_bike_status.json";
+
+// A new layer that gets data from the "live data" URL we provide and converts it into GeoJSON format.
+// This function also sets the interval (how often this gets updated) as well as the style for the markers
+var realtime = L.realtime(function(success, error) {
+    fetch('https://platial.science/p.php?url='+sm_url)
+     .then(function(response) { return response.json(); })
+     .then(function(data) {
+        feat = [];
+        for(i=0;i<data.data.bikes.length;i++) {
+            scoot = {type: 'Feature',properties: {id: i, vehicle: data.data.bikes[i].vehicle_type},geometry: {type: 'Point',coordinates: [parseFloat(data.data.bikes[i].lon), parseFloat(data.data.bikes[i].lat)]}};
+                feat.push(scoot);
+        }
+        success({
+            type: 'FeatureCollection',
+            features: feat
+        });
+    })
+     .catch(error);
+}, {
+    interval: 1000,
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng)
+    }
+}).addTo(map);
         ```
