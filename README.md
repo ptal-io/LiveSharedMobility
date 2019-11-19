@@ -76,4 +76,47 @@ var realtime = L.realtime(function(success, error) {
         return L.marker(latlng)
     }
 }).addTo(map);
-        ```
+```
+
+### Custom Markers
+
+```javascript
+var limeIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png',
+    iconSize:     [20,20], // size of the icon
+    iconAnchor:   [10,10], // point of the icon which will correspond to marker's location
+});
+```
+
+Replace the line `return L.marker(latlng)` with the code below.
+
+```javascript
+if(feature.properties.vehicle == "bike")
+	limeIcon.iconUrl = 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/bike.png';
+else
+	limeIcon.iconUrl = 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png';
+return L.marker(latlng, {icon:limeIcon})
+```
+
+Now search the web for your own custom markers to replace URLs shown here.  Remember to update the `iconSize` and `iconAnchor` parameters to reflect the size of your new icon.  
+
+### Pop-ups
+
+The code below will add pop-up dialogs to your markers so that you can click on one to get more information.
+```javascript
+realtime.on('update', function(e) {
+    popupContent = function(fId) {
+        var feature = e.features[fId],
+            c = feature.properties.vehicle;
+        return 'Vehicle Type: ' + c;
+    },
+    bindFeaturePopup = function(fId) {
+        realtime.getLayer(fId).bindPopup(popupContent(fId));
+    },
+    updateFeaturePopup = function(fId) {
+        realtime.getLayer(fId).getPopup().setContent(popupContent(fId));
+    };
+    Object.keys(e.enter).forEach(bindFeaturePopup);
+    Object.keys(e.update).forEach(updateFeaturePopup);
+});
+```
