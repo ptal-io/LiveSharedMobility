@@ -105,18 +105,23 @@ Now search the web for your own custom markers to replace URLs shown here.  Reme
 The code below will add pop-up dialogs to your markers so that you can click on one to get more information.
 ```javascript
 realtime.on('update', function(e) {
-    popupContent = function(fId) {
-        var feature = e.features[fId],
-            c = feature.properties.vehicle;
-        return 'Vehicle Type: ' + c;
-    },
-    bindFeaturePopup = function(fId) {
-        realtime.getLayer(fId).bindPopup(popupContent(fId));
-    },
-    updateFeaturePopup = function(fId) {
-        realtime.getLayer(fId).getPopup().setContent(popupContent(fId));
-    };
-    Object.keys(e.enter).forEach(bindFeaturePopup);
-    Object.keys(e.update).forEach(updateFeaturePopup);
+	popupContent = function(fId) {
+		var feature = e.features[fId],
+			c = feature.properties.vehicle;
+		return 'Vehicle Type: ' + c;
+	},
+	bindFeaturePopup = function(fId) {
+		realtime.getLayer(fId).bindPopup(popupContent(fId));
+	},
+	updateFeaturePopup = function(fId) {
+		realtime.getLayer(fId).getPopup().setContent(popupContent(fId));
+	};
+	Object.keys(e.enter).forEach(bindFeaturePopup);
+	Object.keys(e.update).forEach(updateFeaturePopup);
 });
 ```
+
+### Going Local
+
+  * http://platialanalytics.com/call.php
+  * `41.826, -71.415`
