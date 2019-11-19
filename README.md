@@ -20,5 +20,7 @@ Every time that a request is made to this URL, a list of all available vehicles 
 
 2. Open up the `index.html` using a simple text editor (e.g., NotePad, TextEdit).
 
-3. In your favorite browser (ideally Firefox), navigate to https://codepen.io/pen.
+3. In your favorite browser (ideally Firefox), navigate to https://codepen.io/pen.  CodePen is a (limited) free live html coding platform.  You can write HTML and view the results all on the same page.  You are welcome to demo CodePen, but I encourage you to create an account so that you can save your work.
 
+
+![preliminary index file](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Preliminary Index Page")
