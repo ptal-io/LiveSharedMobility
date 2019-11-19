@@ -14,13 +14,14 @@ From a shared mobility perspective, we will displaying available [Lime](https://
 
 Every time that a request is made to this URL, a list of all available vehicles are returned.  We will take this data, parse it in real-time, and visualize it on our web every second.
 
-## Starting HTML Template
+## HTML Template
 
-1. create a new directory on your computer and download the `index.html` file shown above to this new directory.  Make sure to save it as index.html
+1. Click on the `index.html` file shown above to view the contents.
 
-2. Open up the `index.html` using a simple text editor (e.g., NotePad, TextEdit).
+2. In your favorite browser (ideally Firefox), navigate to https://codepen.io/pen.  CodePen is a (limited) free live html coding platform.  You can write HTML and view the results all on the same page.  You are welcome to demo CodePen, but I encourage you to create an account so that you can save your work.
 
-3. In your favorite browser (ideally Firefox), navigate to https://codepen.io/pen.  CodePen is a (limited) free live html coding platform.  You can write HTML and view the results all on the same page.  You are welcome to demo CodePen, but I encourage you to create an account so that you can save your work.
+## START CODING
 
+Copy the contents of the `index.html` file and past it into the HTML dialog in CodePen (you can collapse the CSS and Javascript dialogs).  Your page should look something like the figure below.
 
-![preliminary index file](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Preliminary Index Page")
+![preliminary index file](https://github.com/ptal-io/LiveSharedMobility/blob/master/workshop_assets/first.png "Preliminary Index Page")
