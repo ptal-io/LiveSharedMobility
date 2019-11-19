@@ -28,3 +28,19 @@ Copy the contents of the `index.html` file and past it into the HTML dialog in C
 To da!  Not very exciting is it?  Try zooming out.  We now have a very basic web map.
 
 ### Now let's get to the fun part...
+
+
+
+# Resources
+
+### Map Center
+  * https://www.latlong.net/
+
+### Base Map
+  * https://mapbox.com
+    * https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ3JhbnRkbWNrZW56aWUiLCJhIjoibEhuY0hORSJ9.Ei_gD1WY0dyCQhmK4-6w4w
+    * satellite-streets-v9
+	* light-v9
+	* dark-v9
+	* outdoors-v9
+
