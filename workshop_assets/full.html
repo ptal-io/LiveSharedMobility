@@ -1,0 +1,97 @@
+<html>
+<head>
+    <!-- Template by Grant McKenzie & Leaflet Tutorial -->
+    <title>Live micro-mobility map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+   <script type="text/javascript" src="http://www.liedman.net/leaflet-realtime/dist/leaflet-realtime.js"></script>
+    <style>
+        #map { position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var map = L.map('map');
+        // ############## EDIT BELOW THIS LINE ##############
+
+        var limeIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png',
+            iconSize:     [20,20], // size of the icon
+            iconAnchor:   [10,10], // point of the icon which will correspond to marker's location
+        });
+      
+ var limeIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png',
+            iconSize:     [20,20], // size of the icon
+            iconAnchor:   [10,10], // point of the icon which will correspond to marker's location
+        });
+
+        // Update map center and zoom here
+        map.setView([41.826, -71.415], 13);
+
+        // Update basemap tiles (Mapbox?) here
+        url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";  
+
+
+        // No need to edit this.  This actually creates a tile layer based on the basemap and adds it to the map
+        L.tileLayer(url, {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Shared mobility URL
+        sm_url = "http://platialanalytics.com/call.php";
+
+        // A new layer that gets data from the "live data" URL we provide and converts it into GeoJSON format.
+        // This function also sets the interval (how often this gets updated) as well as the style for the markers
+        var realtime = L.realtime(function(success, error) {
+            fetch('https://platial.science/p.php?url='+sm_url)
+             .then(function(response) { return response.json(); })
+             .then(function(data) {
+                feat = [];
+                for(i=0;i<data.data.bikes.length;i++) {
+                    scoot = {type: 'Feature',properties: {id: i, vehicle: data.data.bikes[i].vehicle_type},geometry: {type: 'Point',coordinates: [parseFloat(data.data.bikes[i].lon), parseFloat(data.data.bikes[i].lat)]}};
+                        feat.push(scoot);
+                }
+                success({
+                    type: 'FeatureCollection',
+                    features: feat
+                });
+            })
+             .catch(error);
+        }, {
+            interval: 1000,
+            pointToLayer: function (feature, latlng) {
+                if(feature.properties.vehicle == "bike")
+                  limeIcon.iconUrl = 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/bike.png';
+                else
+                  limeIcon.iconUrl = 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png';
+                return L.marker(latlng, {icon:limeIcon})
+            }
+        }).addTo(map);
+
+      realtime.on('update', function(e) {
+            popupContent = function(fId) {
+                var feature = e.features[fId],
+                    c = feature.properties.vehicle;
+                return 'Vehicle Type: ' + c;
+            },
+            bindFeaturePopup = function(fId) {
+                realtime.getLayer(fId).bindPopup(popupContent(fId));
+            },
+            updateFeaturePopup = function(fId) {
+                realtime.getLayer(fId).getPopup().setContent(popupContent(fId));
+            };
+            Object.keys(e.enter).forEach(bindFeaturePopup);
+            Object.keys(e.update).forEach(updateFeaturePopup);
+        });
+
+        // ############## EDIT ABOVE THIS LINE ##############
+    </script>
+</body>
+</html>
