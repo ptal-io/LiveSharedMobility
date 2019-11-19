@@ -38,9 +38,39 @@ To da!  Not very exciting is it?  Try zooming out.  We now have a very basic web
 
 ### Base Map
   * https://mapbox.com
-    * https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ3JhbnRkbWNrZW56aWUiLCJhIjoibEhuY0hORSJ9.Ei_gD1WY0dyCQhmK4-6w4w
-    * satellite-streets-v9
-	* light-v9
-	* dark-v9
-	* outdoors-v9
+    * Example: `https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ3JhbnRkbWNrZW56aWUiLCJhIjoibEhuY0hORSJ9.Ei_gD1WY0dyCQhmK4-6w4w`
+    * Other pre-fab tile layers:
+      * satellite-streets-v9
+	  * light-v9
+	  * dark-v9
+	  * outdoors-v9
 
+### Real-time Data
+
+```        // Shared mobility URL
+        sm_url = "https://lime.bike/api/partners/v1/gbfs/free_bike_status.json";
+
+        // A new layer that gets data from the "live data" URL we provide and converts it into GeoJSON format.
+        // This function also sets the interval (how often this gets updated) as well as the style for the markers
+        var realtime = L.realtime(function(success, error) {
+            fetch('https://platial.science/p.php?url='+sm_url)
+             .then(function(response) { return response.json(); })
+             .then(function(data) {
+                feat = [];
+                for(i=0;i<data.data.bikes.length;i++) {
+                    scoot = {type: 'Feature',properties: {id: i, vehicle: data.data.bikes[i].vehicle_type},geometry: {type: 'Point',coordinates: [parseFloat(data.data.bikes[i].lon), parseFloat(data.data.bikes[i].lat)]}};
+                        feat.push(scoot);
+                }
+                success({
+                    type: 'FeatureCollection',
+                    features: feat
+                });
+            })
+             .catch(error);
+        }, {
+            interval: 1000,
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng)
+            }
+        }).addTo(map);
+        ```
