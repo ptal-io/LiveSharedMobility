@@ -49,7 +49,7 @@ To da!  Not very exciting is it?  Try zooming out.  We now have a very basic web
 
 Copy the code below and paste it directly above the line that reads `EDIT ABOVE THIS LINE`.  I will explain this code in further detail.
 
-```        
+```javascript
 // Shared mobility URL
 sm_url = "https://lime.bike/api/partners/v1/gbfs/free_bike_status.json";
 
