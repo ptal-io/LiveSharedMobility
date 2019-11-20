@@ -1,5 +1,7 @@
 # Live Shared Mobility Workshop
 
+_This tutorial written by Grant McKenzie (grant.mckenzie@mcgill.ca)_
+
 In this workshop we will step through the process of developing an interactive web map that displays real-time micro-mobility data.  
 
 From a practical perspective this will involve the use of [javascript](https://www.w3schools.com/js/) and a number of opensource (and one not-so opensource) libraries.  Specifically this workshop will make use of the following libraries.
@@ -164,3 +166,7 @@ to
 ```javascript
 return 'Vehicle Type: ' + c + "<br/>Battery: " + feature.properties.battery*100+"%";
 ```
+
+## Next Steps
+
+Congratulations, we now have a working real-time, interactive web map of shared mobility service.  Play around with the code.  See what else you can add/change.  How would you add an additional shared mobility service (e.g., Bird)?
