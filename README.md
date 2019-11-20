@@ -81,7 +81,14 @@ var realtime = L.realtime(function(success, error) {
 ### Custom Markers
 
 ```javascript
-var limeIcon = L.icon({
+// Set custom icons
+var bikeIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/bike.png',
+    iconSize:     [20,20], // size of the icon
+    iconAnchor:   [10,10], // point of the icon which will correspond to marker's location
+});
+
+var scooterIcon = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png',
     iconSize:     [20,20], // size of the icon
     iconAnchor:   [10,10], // point of the icon which will correspond to marker's location
@@ -92,10 +99,10 @@ Replace the line `return L.marker(latlng)` with the code below.
 
 ```javascript
 if(feature.properties.vehicle == "bike")
-	limeIcon.iconUrl = 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/bike.png';
+	icon = bikeIcon;
 else
-	limeIcon.iconUrl = 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png';
-return L.marker(latlng, {icon:limeIcon})
+	icon = scooterIcon;
+return L.marker(latlng, {icon:icon});
 ```
 
 Now search the web for your own custom markers to replace URLs shown here.  Remember to update the `iconSize` and `iconAnchor` parameters to reflect the size of your new icon.  
@@ -125,3 +132,9 @@ realtime.on('update', function(e) {
 
   * http://platialanalytics.com/call.php
   * `41.826, -71.415`
+
+### Extra Credit
+
+  * `vehicle: data.data.bikes[i].vehicle_type` to `vehicle: data.data.bikes[i].jump_vehicle_type, battery: parseInt(data.data.bikes[i].jump_ebike_battery_level.slice(0, -1))/100`
+  * `return L.marker(latlng, {icon:icon});` to `return L.marker(latlng, {icon:icon}).setOpacity(feature.properties.battery);`
+  * `return 'Vehicle Type: ' + c;` to `return 'Vehicle Type: ' + c + "<br/>Battery: " + feature.properties.battery*100+"%";`

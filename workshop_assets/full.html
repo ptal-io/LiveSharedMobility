@@ -20,13 +20,14 @@
         var map = L.map('map');
         // ############## EDIT BELOW THIS LINE ##############
 
-        var limeIcon = L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png',
+        // Set custom icons
+        var bikeIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/bike.png',
             iconSize:     [20,20], // size of the icon
             iconAnchor:   [10,10], // point of the icon which will correspond to marker's location
         });
       
- var limeIcon = L.icon({
+        var scooterIcon = L.icon({
             iconUrl: 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png',
             iconSize:     [20,20], // size of the icon
             iconAnchor:   [10,10], // point of the icon which will correspond to marker's location
@@ -36,7 +37,7 @@
         map.setView([41.826, -71.415], 13);
 
         // Update basemap tiles (Mapbox?) here
-        url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";  
+        url = "https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ3JhbnRkbWNrZW56aWUiLCJhIjoibEhuY0hORSJ9.Ei_gD1WY0dyCQhmK4-6w4w";  
 
 
         // No need to edit this.  This actually creates a tile layer based on the basemap and adds it to the map
@@ -55,7 +56,7 @@
              .then(function(data) {
                 feat = [];
                 for(i=0;i<data.data.bikes.length;i++) {
-                    scoot = {type: 'Feature',properties: {id: i, vehicle: data.data.bikes[i].vehicle_type},geometry: {type: 'Point',coordinates: [parseFloat(data.data.bikes[i].lon), parseFloat(data.data.bikes[i].lat)]}};
+                    scoot = {type: 'Feature',properties: {id: i, vehicle: data.data.bikes[i].jump_vehicle_type, battery: parseInt(data.data.bikes[i].jump_ebike_battery_level.slice(0, -1))/100},geometry: {type: 'Point',coordinates: [parseFloat(data.data.bikes[i].lon), parseFloat(data.data.bikes[i].lat)]}};
                         feat.push(scoot);
                 }
                 success({
@@ -68,28 +69,28 @@
             interval: 1000,
             pointToLayer: function (feature, latlng) {
                 if(feature.properties.vehicle == "bike")
-                  limeIcon.iconUrl = 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/bike.png';
+                  icon = bikeIcon;
                 else
-                  limeIcon.iconUrl = 'https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/scooter.png';
-                return L.marker(latlng, {icon:limeIcon})
+                  icon = scooterIcon;
+                return L.marker(latlng, {icon:icon}).setOpacity(feature.properties.battery);
             }
         }).addTo(map);
 
       realtime.on('update', function(e) {
-            popupContent = function(fId) {
-                var feature = e.features[fId],
-                    c = feature.properties.vehicle;
-                return 'Vehicle Type: ' + c;
-            },
-            bindFeaturePopup = function(fId) {
-                realtime.getLayer(fId).bindPopup(popupContent(fId));
-            },
-            updateFeaturePopup = function(fId) {
-                realtime.getLayer(fId).getPopup().setContent(popupContent(fId));
-            };
-            Object.keys(e.enter).forEach(bindFeaturePopup);
-            Object.keys(e.update).forEach(updateFeaturePopup);
-        });
+    popupContent = function(fId) {
+        var feature = e.features[fId],
+            c = feature.properties.vehicle;
+        return 'Vehicle Type: ' + c + "<br/>Battery: " + feature.properties.battery*100+"%";
+    },
+    bindFeaturePopup = function(fId) {
+        realtime.getLayer(fId).bindPopup(popupContent(fId));
+    },
+    updateFeaturePopup = function(fId) {
+        realtime.getLayer(fId).getPopup().setContent(popupContent(fId));
+    };
+    Object.keys(e.enter).forEach(bindFeaturePopup);
+    Object.keys(e.update).forEach(updateFeaturePopup);
+});
 
         // ############## EDIT ABOVE THIS LINE ##############
     </script>
