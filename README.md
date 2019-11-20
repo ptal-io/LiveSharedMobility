@@ -1,4 +1,4 @@
-# Live Shared Mobility Workshop
+# Real-time Shared Mobility Workshop
 
 _Workshop designed and lead by [Grant McKenzie](https://grantmckenzie.com) (grant.mckenzie@mcgill.ca)_
 
