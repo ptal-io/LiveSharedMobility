@@ -1,6 +1,6 @@
 # Live Shared Mobility Workshop
 
-_This tutorial written by Grant McKenzie (grant.mckenzie@mcgill.ca)_
+_Workshop designed and lead by [Grant McKenzie](https://grantmckenzie.com) (grant.mckenzie@mcgill.ca)_
 
 In this workshop we will step through the process of developing an interactive web map that displays real-time micro-mobility data.  
 
