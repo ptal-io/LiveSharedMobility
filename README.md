@@ -135,6 +135,8 @@ realtime.on('update', function(e) {
 
 ### Extra Credit
 
+Change
+
 ```javascript
 vehicle: data.data.bikes[i].vehicle_type
 ```
@@ -143,10 +145,22 @@ to
 vehicle: data.data.bikes[i].jump_vehicle_type, battery: parseInt(data.data.bikes[i].jump_ebike_battery_level.slice(0, -1))/100
 ```
 
-```javascript
-return L.marker(latlng, {icon:icon});` to `return L.marker(latlng, {icon:icon}).setOpacity(feature.properties.battery);
-```
+Change 
 
 ```javascript
-return 'Vehicle Type: ' + c;` to `return 'Vehicle Type: ' + c + "<br/>Battery: " + feature.properties.battery*100+"%";
+return L.marker(latlng, {icon:icon});
+```
+to
+```javascript
+return L.marker(latlng, {icon:icon}).setOpacity(feature.properties.battery);
+```
+
+Change
+
+```javascript
+return 'Vehicle Type: ' + c;
+```
+to
+```javascript
+return 'Vehicle Type: ' + c + "<br/>Battery: " + feature.properties.battery*100+"%";
 ```
