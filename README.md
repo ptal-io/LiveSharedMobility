@@ -25,7 +25,7 @@ In your favorite browser (ideally Firefox), navigate to https://codepen.io/pen. 
 
 Copy the contents of the `index.html` file and past it into the HTML dialog in CodePen (you can collapse the CSS and Javascript dialogs).  Your page should look something like the figure below.
 
-![preliminary index file](https://github.com/ptal-io/LiveSharedMobility/blob/master/workshop_assets/first.png "Preliminary Index Page")
+![preliminary index file](https://raw.githubusercontent.com/ptal-io/LiveSharedMobility/master/workshop_assets/first.png "Preliminary Index Page")
 
 To da!  Not very exciting is it?  Try zooming out.  We now have a very basic web map.
 
