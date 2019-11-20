@@ -2,7 +2,7 @@
 
 _Workshop designed and lead by [Grant McKenzie](https://grantmckenzie.com) (grant.mckenzie@mcgill.ca)_
 
-In this workshop we will step through the process of developing an interactive web map that displays real-time micro-mobility data.  
+In this workshop we will step through the process of developing an interactive web map that displays real-time shared mobility data.  
 
 From a practical perspective this will involve the use of [javascript](https://www.w3schools.com/js/) and a number of opensource (and one not-so opensource) libraries.  Specifically this workshop will make use of the following libraries.
 
