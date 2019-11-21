@@ -2,7 +2,7 @@
 
 _Workshop designed and lead by [Grant McKenzie](https://grantmckenzie.com) (grant.mckenzie@mcgill.ca)_
 
-In this workshop we will step through the process of developing an interactive web map that displays real-time shared mobility data.  
+In this workshop we will step through the process of developing an interactive web map that displays real-time shared mobility data. [.](https://mcgill.ca/x/Z2P) 
 
 From a practical perspective this will involve the use of [javascript](https://www.w3schools.com/js/) and a number of opensource (and one not-so opensource) libraries.  Specifically this workshop will make use of the following libraries.
 
@@ -10,7 +10,7 @@ From a practical perspective this will involve the use of [javascript](https://w
   * [Mapbox](https://www.mapbox.com/)
   * [Leaflet Realtime](https://github.com/perliedman/leaflet-realtime)
 
-From a shared mobility perspective, we will displaying available [Lime](https://www.li.me/electric-scooter) vehicles in the city of Washington, D.C.  These data can be accessed through the open application programming interface (API) made available via the [District Department of Transportation](https://ddot.dc.gov/page/dockless-api). The specific URL that we will be using is
+From a shared mobility perspective, we will be displaying available [Lime](https://www.li.me/electric-scooter) vehicles in the city of Washington, D.C.  These data can be accessed through the open application programming interface (API) made available via the [District Department of Transportation](https://ddot.dc.gov/page/dockless-api). The specific URL that we will be using is
 
   * https://lime.bike/api/partners/v1/gbfs/free_bike_status.json
 
